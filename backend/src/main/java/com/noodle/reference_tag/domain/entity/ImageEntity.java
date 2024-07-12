@@ -1,4 +1,4 @@
-package com.noodle.reference_tag.domain;
+package com.noodle.reference_tag.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

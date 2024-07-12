@@ -1,6 +1,8 @@
 package com.noodle.reference_tag.service.impl;
 
-import com.noodle.reference_tag.domain.ImageEntity;
+import com.noodle.reference_tag.domain.dto.ImageDto;
+import com.noodle.reference_tag.domain.entity.ImageEntity;
+import com.noodle.reference_tag.mapper.impl.ImageMapper;
 import com.noodle.reference_tag.repository.ImageRepository;
 import com.noodle.reference_tag.service.ImageService;
 import com.noodle.reference_tag.service.ImageTagService;
@@ -9,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ImageServiceImpl implements ImageService {
@@ -20,26 +23,27 @@ public class ImageServiceImpl implements ImageService {
 
     private final ImageTagService imageTagService;
 
+    private final ImageMapper imageMapper;
+
     /**
      * Constructor that will instantiate the repository
      *
      * @param imageRepository The Image Repository that will be injected
      * @param imageTagService
+     * @param imageMapper
      */
-    public ImageServiceImpl(ImageRepository imageRepository, ImageTagService imageTagService) {
+    public ImageServiceImpl(ImageRepository imageRepository, ImageTagService imageTagService, ImageMapper imageMapper) {
         this.imageRepository = imageRepository;
         this.imageTagService = imageTagService;
+        this.imageMapper = imageMapper;
     }
 
-    /**
-     * Saves an ImageEntity to the DB
-     * @param imageEntity The Image Entity to be saved
-     * @return A copy of the Image Entity
-     */
+
     @Override
-    @Transactional
-    public ImageEntity save(ImageEntity imageEntity) {
-        return imageRepository.save(imageEntity);
+    public ImageDto save(ImageDto imageDto) {
+        ImageEntity imageEntity = imageMapper.mapFrom(imageDto);
+        ImageEntity savedEntity = imageRepository.save(imageEntity);
+        return imageMapper.mapTo(savedEntity);
     }
 
     /**
@@ -48,8 +52,14 @@ public class ImageServiceImpl implements ImageService {
      * @return The Optional container that holds the entity or is empty
      */
     @Override
-    public Optional<ImageEntity> findImageById(Long id) {
-        return imageRepository.findById(id);
+    public Optional<ImageDto> findImageById(Long id) {
+        Optional<ImageEntity> foundImage = imageRepository.findById(id);
+        if(foundImage.isPresent()){
+            return Optional.of(imageMapper.mapTo(foundImage.get()));
+        }
+        else{
+            return Optional.empty();
+        }
     }
 
     /**
@@ -57,8 +67,10 @@ public class ImageServiceImpl implements ImageService {
      * @return A list of all images in the DB
      */
     @Override
-    public List<ImageEntity> findAllImages() {
-        return imageRepository.findAll();
+    public List<ImageDto> findAllImages() {
+        return imageRepository.findAll().stream()
+                .map(imageMapper::mapTo)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -79,13 +91,21 @@ public class ImageServiceImpl implements ImageService {
     @Override
     @Transactional
     public void deleteImageById(Long id) {
+        //TODO: Change after ImageTag Service is Refactored
         imageTagService.deleteByImageId(id);
         imageRepository.deleteById(id);
     }
 
     @Override
-    public Optional<ImageEntity> findByPath(String path) {
-        return imageRepository.findByPathIgnoreCase(path);
+    public Optional<ImageDto> findByPath(String path) {
+        Optional<ImageEntity> foundImage = imageRepository.findByPathIgnoreCase(path);
+
+        if(foundImage.isPresent()){
+            return Optional.of(imageMapper.mapTo(foundImage.get()));
+        }
+        else{
+            return Optional.empty();
+        }
     }
 
 

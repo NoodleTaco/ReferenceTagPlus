@@ -1,9 +1,9 @@
 package com.noodle.reference_tag.repository;
 
 import com.noodle.reference_tag.TestDataUtil;
-import com.noodle.reference_tag.domain.ImageEntity;
-import com.noodle.reference_tag.domain.ImageTagEntity;
-import com.noodle.reference_tag.domain.TagEntity;
+import com.noodle.reference_tag.domain.entity.ImageEntity;
+import com.noodle.reference_tag.domain.entity.ImageTagEntity;
+import com.noodle.reference_tag.domain.entity.TagEntity;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,7 +1,7 @@
 package com.noodle.reference_tag.repository;
 
 import com.noodle.reference_tag.TestDataUtil;
-import com.noodle.reference_tag.domain.TagEntity;
+import com.noodle.reference_tag.domain.entity.TagEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

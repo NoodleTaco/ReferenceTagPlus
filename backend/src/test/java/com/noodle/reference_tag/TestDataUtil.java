@@ -1,8 +1,8 @@
 package com.noodle.reference_tag;
 
-import com.noodle.reference_tag.domain.ImageEntity;
-import com.noodle.reference_tag.domain.ImageTagEntity;
-import com.noodle.reference_tag.domain.TagEntity;
+import com.noodle.reference_tag.domain.entity.ImageEntity;
+import com.noodle.reference_tag.domain.entity.ImageTagEntity;
+import com.noodle.reference_tag.domain.entity.TagEntity;
 
 public final class TestDataUtil {
 

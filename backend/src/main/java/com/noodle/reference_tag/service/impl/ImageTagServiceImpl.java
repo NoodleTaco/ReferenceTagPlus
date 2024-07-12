@@ -1,8 +1,8 @@
 package com.noodle.reference_tag.service.impl;
 
-import com.noodle.reference_tag.domain.ImageEntity;
-import com.noodle.reference_tag.domain.ImageTagEntity;
-import com.noodle.reference_tag.domain.TagEntity;
+import com.noodle.reference_tag.domain.entity.ImageEntity;
+import com.noodle.reference_tag.domain.entity.ImageTagEntity;
+import com.noodle.reference_tag.domain.entity.TagEntity;
 import com.noodle.reference_tag.repository.ImageRepository;
 import com.noodle.reference_tag.repository.ImageTagRepository;
 import com.noodle.reference_tag.repository.TagRepository;

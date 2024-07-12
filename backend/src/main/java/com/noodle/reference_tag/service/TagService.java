@@ -1,6 +1,6 @@
 package com.noodle.reference_tag.service;
 
-import com.noodle.reference_tag.domain.TagEntity;
+import com.noodle.reference_tag.domain.entity.TagEntity;
 
 import java.util.List;
 import java.util.Optional;

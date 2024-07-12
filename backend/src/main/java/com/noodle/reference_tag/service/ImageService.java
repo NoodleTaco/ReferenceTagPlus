@@ -1,20 +1,21 @@
 package com.noodle.reference_tag.service;
 
-import com.noodle.reference_tag.domain.ImageEntity;
+import com.noodle.reference_tag.domain.dto.ImageDto;
+import com.noodle.reference_tag.domain.entity.ImageEntity;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ImageService {
-    ImageEntity save(ImageEntity imageEntity);
+    ImageDto save(ImageDto imageDto);
 
-    Optional<ImageEntity> findImageById(Long id);
+    Optional<ImageDto> findImageById(Long id);
 
-    List<ImageEntity> findAllImages();
+    List<ImageDto> findAllImages();
 
     boolean isExists(Long id);
 
     void deleteImageById(Long id);
 
-    Optional<ImageEntity> findByPath(String path);
+    Optional<ImageDto> findByPath(String path);
 }
