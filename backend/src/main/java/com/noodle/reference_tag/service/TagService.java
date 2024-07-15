@@ -1,5 +1,6 @@
 package com.noodle.reference_tag.service;
 
+import com.noodle.reference_tag.domain.dto.TagDto;
 import com.noodle.reference_tag.domain.entity.TagEntity;
 
 import java.util.List;
@@ -7,16 +8,16 @@ import java.util.Optional;
 
 public interface TagService {
 
-    TagEntity save(TagEntity tagEntity);
+    TagDto save(TagDto tagDto);
 
-    Optional<TagEntity> findTagById(Long id);
+    Optional<TagDto> findTagById(Long id);
 
-    List<TagEntity> findAllTags();
+    List<TagDto> findAllTags();
 
     boolean isExists(Long id);
 
     void deleteTagById(Long id);
 
-    Optional<TagEntity> findByName(String name);
+    Optional<TagDto> findByName(String name);
 }
 

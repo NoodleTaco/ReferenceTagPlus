@@ -1,16 +1,24 @@
 package com.noodle.reference_tag.service.impl;
 
+import com.noodle.reference_tag.domain.dto.ImageDto;
+import com.noodle.reference_tag.domain.dto.ImageTagDto;
+import com.noodle.reference_tag.domain.dto.TagDto;
 import com.noodle.reference_tag.domain.entity.ImageEntity;
 import com.noodle.reference_tag.domain.entity.ImageTagEntity;
 import com.noodle.reference_tag.domain.entity.TagEntity;
+import com.noodle.reference_tag.mapper.impl.ImageMapper;
+import com.noodle.reference_tag.mapper.impl.ImageTagMapper;
+import com.noodle.reference_tag.mapper.impl.TagMapper;
 import com.noodle.reference_tag.repository.ImageRepository;
 import com.noodle.reference_tag.repository.ImageTagRepository;
 import com.noodle.reference_tag.repository.TagRepository;
+import com.noodle.reference_tag.service.ImageService;
 import com.noodle.reference_tag.service.ImageTagService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ImageTagServiceImpl implements ImageTagService {
@@ -20,10 +28,20 @@ public class ImageTagServiceImpl implements ImageTagService {
     private final TagRepository tagRepository;
     private final ImageTagRepository imageTagRepository;
 
-    public ImageTagServiceImpl(ImageRepository imageRepository, TagRepository tagRepository, ImageTagRepository imageTagRepository) {
+    private final ImageTagMapper imageTagMapper;
+
+    private final TagMapper tagMapper;
+
+    private final ImageMapper imageMapper;
+
+    public ImageTagServiceImpl(ImageRepository imageRepository, TagRepository tagRepository, ImageTagRepository imageTagRepository, ImageTagMapper imageTagMapper, TagMapper tagMapper, ImageMapper imageMapper) {
         this.imageRepository = imageRepository;
         this.tagRepository = tagRepository;
         this.imageTagRepository = imageTagRepository;
+        this.imageTagMapper = imageTagMapper;
+
+        this.tagMapper = tagMapper;
+        this.imageMapper = imageMapper;
     }
 
 
@@ -35,7 +53,7 @@ public class ImageTagServiceImpl implements ImageTagService {
      */
     @Override
     @Transactional
-    public ImageTagEntity associateTagWithImage(Long imageId, Long tagId) {
+    public ImageTagDto associateTagWithImage(Long imageId, Long tagId) {
         //Find Image
         ImageEntity image = imageRepository.findById(imageId)
                 .orElseThrow(() -> new RuntimeException("Image not found with id: " + imageId));
@@ -49,7 +67,9 @@ public class ImageTagServiceImpl implements ImageTagService {
                 .tag(tag)
                 .build();
 
-        return imageTagRepository.save(imageTag);
+
+        ImageTagEntity savedEntity = imageTagRepository.save(imageTag);
+        return imageTagMapper.mapTo(savedEntity);
     }
 
     /**
@@ -73,22 +93,29 @@ public class ImageTagServiceImpl implements ImageTagService {
      */
     @Override
     @Transactional
-    public List<TagEntity> getTagsForImage(Long imageId) {
+    public List<TagDto> getTagsForImage(Long imageId) {
         ImageEntity image = imageRepository.findById(imageId)
                 .orElseThrow(() -> new RuntimeException("Image not found with id: " + imageId));
 
         List<ImageTagEntity> imageTags = imageTagRepository.findByImageId(image.getId());
 
-        return imageTags.stream()
+        List<TagEntity> tagEntityList = imageTags.stream()
                 .map(ImageTagEntity::getTag)
                 .toList();
 
+        return tagEntityList.stream()
+                .map(tagMapper::mapTo)
+                .collect(Collectors.toList());
     }
 
     @Override
     @Transactional
-    public List<ImageTagEntity> findByImageIdAndTagId(Long imageId, Long tagId) {
-        return imageTagRepository.findByImage_IdAndTag_Id(imageId, tagId);
+    public List<ImageTagDto> findByImageIdAndTagId(Long imageId, Long tagId) {
+
+        List<ImageTagEntity> imageTagEntityList = imageTagRepository.findByImage_IdAndTag_Id(imageId, tagId);
+        return imageTagEntityList.stream()
+                .map(imageTagMapper::mapTo)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -105,10 +132,15 @@ public class ImageTagServiceImpl implements ImageTagService {
 
     @Override
     @Transactional
-    public List<ImageEntity> findImageBySearchedTags(List<Long> tagIds) {
+    public List<ImageDto> findImageBySearchedTags(List<Long> tagIds) {
         if (tagIds.isEmpty()) {
-            return imageRepository.findAll();
+            return imageRepository.findAll().stream()
+                    .map(imageMapper::mapTo)
+                    .collect(Collectors.toList());
         }
-        return imageTagRepository.findImagesByAllTags(tagIds, tagIds.size());
+        List<ImageEntity> imageEntityList = imageTagRepository.findImagesByAllTags(tagIds, tagIds.size());
+        return imageEntityList.stream()
+                .map(imageMapper::mapTo)
+                .collect(Collectors.toList());
     }
 }

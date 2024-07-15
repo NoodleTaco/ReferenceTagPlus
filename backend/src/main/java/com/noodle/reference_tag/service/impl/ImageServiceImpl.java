@@ -91,7 +91,6 @@ public class ImageServiceImpl implements ImageService {
     @Override
     @Transactional
     public void deleteImageById(Long id) {
-        //TODO: Change after ImageTag Service is Refactored
         imageTagService.deleteByImageId(id);
         imageRepository.deleteById(id);
     }
