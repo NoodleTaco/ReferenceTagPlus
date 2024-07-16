@@ -41,7 +41,7 @@ public class ImageTagRepositoryIntegrationTest {
     @Test
     @Transactional
     public void testThatImageTagCanBeCreatedAndRecalled(){
-        ImageEntity imageEntityA = TestDataUtil.createTestImageA();
+        ImageEntity imageEntityA = TestDataUtil.createTestImageEntityA();
         imageRepository.save(imageEntityA);
         TagEntity tagEntityA = TestDataUtil.createTestTagA();
         tagRepository.save(tagEntityA);
@@ -60,7 +60,7 @@ public class ImageTagRepositoryIntegrationTest {
     @Test
     @Transactional
     public void testThatImageTagCanBeDeleted(){
-        ImageEntity imageEntityA = TestDataUtil.createTestImageA();
+        ImageEntity imageEntityA = TestDataUtil.createTestImageEntityA();
         imageRepository.save(imageEntityA);
 
         TagEntity tagEntityA = TestDataUtil.createTestTagA();
@@ -83,7 +83,7 @@ public class ImageTagRepositoryIntegrationTest {
     @Transactional
     public void testThatMultipleImageTagsAssociatedWithImageCanBeRecalled() {
         // Create entities without setting the ID
-        ImageEntity imageEntityA = TestDataUtil.createTestImageA();
+        ImageEntity imageEntityA = TestDataUtil.createTestImageEntityA();
         TagEntity tagEntityA = TestDataUtil.createTestTagA();
         TagEntity tagEntityB = TestDataUtil.createTestTagB();
         TagEntity tagEntityC = TestDataUtil.createTestTagC();
@@ -115,8 +115,8 @@ public class ImageTagRepositoryIntegrationTest {
     @Test
     @Transactional
     public void testThatImageSearchByTagReturnsImagesWhenCriteriaExactlyMet(){
-        ImageEntity imageEntityA = TestDataUtil.createTestImageA();
-        ImageEntity imageEntityB = TestDataUtil.createTestImageB();
+        ImageEntity imageEntityA = TestDataUtil.createTestImageEntityA();
+        ImageEntity imageEntityB = TestDataUtil.createTestImageEntityB();
         TagEntity tagEntityA = TestDataUtil.createTestTagA();
         TagEntity tagEntityB = TestDataUtil.createTestTagB();
 
@@ -149,8 +149,8 @@ public class ImageTagRepositoryIntegrationTest {
     @Test
     @Transactional
     public void testThatImageSearchByTagReturnsImagesWhenCriteriaMetWithExtra(){
-        ImageEntity imageEntityA = TestDataUtil.createTestImageA();
-        ImageEntity imageEntityB = TestDataUtil.createTestImageB();
+        ImageEntity imageEntityA = TestDataUtil.createTestImageEntityA();
+        ImageEntity imageEntityB = TestDataUtil.createTestImageEntityB();
 
         TagEntity tagEntityA = TestDataUtil.createTestTagA();
         TagEntity tagEntityB = TestDataUtil.createTestTagB();
@@ -187,8 +187,8 @@ public class ImageTagRepositoryIntegrationTest {
     @Test
     @Transactional
     public void testThatImageSearchByTagReturnsNopImagesWhenCriteriaPartiallyMet(){
-        ImageEntity imageEntityA = TestDataUtil.createTestImageA();
-        ImageEntity imageEntityB = TestDataUtil.createTestImageB();
+        ImageEntity imageEntityA = TestDataUtil.createTestImageEntityA();
+        ImageEntity imageEntityB = TestDataUtil.createTestImageEntityB();
 
         TagEntity tagEntityA = TestDataUtil.createTestTagA();
         TagEntity tagEntityB = TestDataUtil.createTestTagB();

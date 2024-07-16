@@ -29,7 +29,7 @@ public class ImageRepositoryIntegrationTest {
 
     @Test
     public void testThatImageCanBeCreatedAndRecalled(){
-        ImageEntity imageEntity = TestDataUtil.createTestImageA();
+        ImageEntity imageEntity = TestDataUtil.createTestImageEntityA();
 
         underTest.save(imageEntity);
         Optional<ImageEntity> result = underTest.findById(imageEntity.getId());
@@ -40,13 +40,13 @@ public class ImageRepositoryIntegrationTest {
 
     @Test
     public void testThatMultipleImagesCanBeCreatedAndRecalled(){
-        ImageEntity imageEntityA = TestDataUtil.createTestImageA();
+        ImageEntity imageEntityA = TestDataUtil.createTestImageEntityA();
         underTest.save(imageEntityA);
 
-        ImageEntity imageEntityB = TestDataUtil.createTestImageB();
+        ImageEntity imageEntityB = TestDataUtil.createTestImageEntityB();
         underTest.save(imageEntityB);
 
-        ImageEntity imageEntityC = TestDataUtil.createTestImageC();
+        ImageEntity imageEntityC = TestDataUtil.createTestImageEntityC();
         underTest.save(imageEntityC);
 
         List<ImageEntity> result = underTest.findAll();
@@ -58,7 +58,7 @@ public class ImageRepositoryIntegrationTest {
 
     @Test
     public void testThatImageCanBeUpdated(){
-        ImageEntity imageEntityA = TestDataUtil.createTestImageA();
+        ImageEntity imageEntityA = TestDataUtil.createTestImageEntityA();
         underTest.save(imageEntityA);
 
         imageEntityA.setPath("UPDATED PATH");
@@ -71,7 +71,7 @@ public class ImageRepositoryIntegrationTest {
 
     @Test
     public void testThatImageCanBeDeleted(){
-        ImageEntity imageEntityA = TestDataUtil.createTestImageA();
+        ImageEntity imageEntityA = TestDataUtil.createTestImageEntityA();
         underTest.save(imageEntityA);
         underTest.deleteById(imageEntityA.getId());
         Optional<ImageEntity> result = underTest.findById(imageEntityA.getId());

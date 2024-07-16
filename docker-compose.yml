@@ -19,7 +19,7 @@ services:
   db:
     image: postgres:13
     environment:
-      POSTGRES_DB: reference_tag_db
+      POSTGRES_DB: reference_tag_plus_db
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
