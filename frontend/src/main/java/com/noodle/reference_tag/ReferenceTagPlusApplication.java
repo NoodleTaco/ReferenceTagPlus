@@ -1,5 +1,6 @@
 package com.noodle.reference_tag;
 
+import com.noodle.reference_tag.config.StageInitializer;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +22,9 @@ public class ReferenceTagPlusApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        // Set the primary stage in StageInitializer
+        springContext.getBean(StageInitializer.class).setPrimaryStage(primaryStage);
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
         fxmlLoader.setControllerFactory(springContext::getBean);
         root = fxmlLoader.load();

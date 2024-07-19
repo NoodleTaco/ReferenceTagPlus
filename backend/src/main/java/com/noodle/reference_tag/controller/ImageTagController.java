@@ -41,4 +41,12 @@ public class ImageTagController {
         List<ImageDto> images = imageTagService.findImageBySearchedTags(tagIds);
         return ResponseEntity.ok(images);
     }
+
+    @GetMapping("/find")
+    public ResponseEntity<List<ImageTagDto>> findByImageIdAndTagId(
+            @RequestParam("imageId") Long imageId,
+            @RequestParam("tagId") Long tagId) {
+        List<ImageTagDto> imageTags = imageTagService.findByImageIdAndTagId(imageId, tagId);
+        return ResponseEntity.ok(imageTags);
+    }
 }

@@ -1,11 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.noodle.reference_tag.controller.MainController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.noodle.reference_tag.controller.MainController">
    <children>
-      <Button layoutX="241.0" layoutY="175.0" mnemonicParsing="false" onAction="#onTestButtonClick" text="Test" />
+      <GridPane layoutX="7.0" layoutY="7.0" prefHeight="720.0" prefWidth="1280.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="422.0" minWidth="10.0" prefWidth="315.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="736.0" minWidth="10.0" prefWidth="640.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="325.0" minWidth="10.0" prefWidth="325.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <VBox prefHeight="720.0" prefWidth="315.0">
+               <children>
+                  <ListView fx:id="allTagListView" prefHeight="200.0" prefWidth="200.0" />
+                  <HBox prefHeight="100.0" prefWidth="315.0">
+                     <children>
+                        <Button fx:id="CreateTagButton" mnemonicParsing="false" onAction="#onCreateTagAction" prefHeight="50.0" prefWidth="150.0" text="Create Tag" />
+                        <Button fx:id="DeleteTagButton" mnemonicParsing="false" onAction="#deleteTag" prefHeight="50.0" prefWidth="150.0" text="Delete Tag" />
+                     </children>
+                  </HBox>
+                  <Button fx:id="refreshAllTagButton" mnemonicParsing="false" onAction="#refreshAllTagListView" text="refresh" />
+                  <ListView fx:id="searchTagListView" prefHeight="200.0" prefWidth="200.0" />
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#addTagToSearch" prefHeight="50.0" prefWidth="150.0" text="Add Tag" />
+                        <Button mnemonicParsing="false" onAction="#removeTagFromSearch" prefHeight="50.0" prefWidth="150.0" text="Remove Tag" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="AddImageButton" mnemonicParsing="false" onAction="#onAddImageButtonAction" prefHeight="50.0" prefWidth="150.0" text="Add Image" />
+                        <Button mnemonicParsing="false" onAction="#deleteSelectedImage" prefHeight="50.0" prefWidth="150.0" text="Delete Image" />
+                     </children>
+                  </HBox>
+                  <TilePane fx:id="imageTilePane" prefHeight="200.0" prefWidth="200.0" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
+               <children>
+                  <Label fx:id="selectedImageNameLabel" prefHeight="34.0" prefWidth="189.0" text="Label" />
+                  <ImageView fx:id="selectedImageView" fitHeight="244.0" fitWidth="325.0" pickOnBounds="true" preserveRatio="true" />
+                  <ListView fx:id="selectedImageTagListView" prefHeight="200.0" prefWidth="200.0" />
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="AddTagToImageButton" mnemonicParsing="false" onAction="#addTagToImage" prefHeight="50.0" prefWidth="150.0" text="Add Tag" />
+                        <Button mnemonicParsing="false" onAction="#removeTagFromImage" prefHeight="50.0" prefWidth="150.0" text="Remove Tag" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>

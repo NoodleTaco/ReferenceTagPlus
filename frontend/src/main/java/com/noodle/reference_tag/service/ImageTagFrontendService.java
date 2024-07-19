@@ -31,4 +31,8 @@ public class ImageTagFrontendService {
         String tagIdsParam = String.join(",", tagIds.stream().map(Object::toString).toArray(String[]::new));
         return apiService.getList("/image-tags/search?tagIds=" + tagIdsParam, ImageDto[].class);
     }
+
+    public List<ImageTagDto> findByImageIdAndTagId(Long imageId, Long tagId) {
+        return apiService.getList("/image-tags/find?imageId=" + imageId + "&tagId=" + tagId, ImageTagDto[].class);
+    }
 }
